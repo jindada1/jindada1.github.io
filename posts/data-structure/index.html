@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>数据结构 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="数据结构知识储备大&#x2F;小端方式内存中的存储模式，它由 CPU 决定 对于一次能处理多个字节的CPU，存在着如何安排多个字节的问题，也就是大端和小端模式。以 int 类型的 0x12345678 为例，它占用 4 个字节，如果是小端模式（Little-endian），那么在内存中的分布情况为（假设从地址 0x 4000 开始存放）：     内存地址 0x4000 0x4001 0x4002 0x40">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构">
+<meta property="og:url" content="http://example.com/posts/data-structure/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="数据结构知识储备大&#x2F;小端方式内存中的存储模式，它由 CPU 决定 对于一次能处理多个字节的CPU，存在着如何安排多个字节的问题，也就是大端和小端模式。以 int 类型的 0x12345678 为例，它占用 4 个字节，如果是小端模式（Little-endian），那么在内存中的分布情况为（假设从地址 0x 4000 开始存放）：     内存地址 0x4000 0x4001 0x4002 0x40">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/posts/data-structure/d3617d2ceb02f6129c9b41361804cbe2_r.jpg">
+<meta property="og:image" content="http://example.com/posts/data-structure/image-20191210162718230.png">
+<meta property="og:image" content="http://example.com/posts/data-structure/image-20191211190221107.png">
+<meta property="og:image" content="http://example.com/posts/data-structure/image-20191211190246308.png">
+<meta property="og:image" content="http://example.com/posts/data-structure/1574820336962.png">
+<meta property="og:image" content="http://example.com/posts/data-structure/1574820575444.png">
+<meta property="og:image" content="http://example.com/posts/data-structure/image-20191211191149871.png">
+<meta property="og:image" content="http://example.com/posts/data-structure/image-20191211191202782.png">
+<meta property="og:image" content="http://example.com/posts/data-structure/20171116105027707">
+<meta property="og:image" content="http://example.com/posts/data-structure/20171116105644715">
+<meta property="og:image" content="http://example.com/posts/data-structure/20180425165250180">
+<meta property="og:image" content="http://example.com/posts/data-structure/image-20191210162003270.png">
+<meta property="og:image" content="http://example.com/posts/data-structure/image-20191210184659088.png">
+<meta property="og:image" content="http://example.com/posts/data-structure/image-20191210194643659.png">
+<meta property="og:image" content="http://example.com/posts/data-structure/image-20191210202020338.png">
+<meta property="article:published_time" content="2021-01-12T09:32:01.000Z">
+<meta property="article:modified_time" content="2021-01-12T15:28:47.872Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="408 计算机基础综合 考研 数据结构">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/posts/data-structure/d3617d2ceb02f6129c9b41361804cbe2_r.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-data-structure" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/posts/data-structure/" class="article-date">
+  <time class="dt-published" datetime="2021-01-12T09:32:01.000Z" itemprop="datePublished">2021-01-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      数据结构
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h1><h2 id="知识储备"><a href="#知识储备" class="headerlink" title="知识储备"></a>知识储备</h2><h3 id="大-小端方式"><a href="#大-小端方式" class="headerlink" title="大/小端方式"></a>大/小端方式</h3><p>内存中的存储模式，它由 CPU 决定</p>
+<p>对于一次能处理多个字节的CPU，存在着如何安排多个字节的问题，也就是大端和小端模式。以 int 类型的 0x12345678 为例，它占用 4 个字节，如果是小端模式（Little-endian），那么在内存中的分布情况为（假设从地址 0x 4000 开始存放）：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>内存地址</th>
+<th>0x4000</th>
+<th>0x4001</th>
+<th>0x4002</th>
+<th>0x4003</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>存放内容</td>
+<td>0x78</td>
+<td>0x56</td>
+<td>0x34</td>
+<td>0x12</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>如果是大端模式（Big-endian），那么分布情况正好相反：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>内存地址</th>
+<th>0x4000</th>
+<th>0x4001</th>
+<th>0x4002</th>
+<th>0x4003</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>存放内容</td>
+<td>0x12</td>
+<td>0x34</td>
+<td>0x56</td>
+<td>0x78</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="边界对齐"><a href="#边界对齐" class="headerlink" title="边界对齐"></a>边界对齐</h3><p>第一个成员存放在偏移量为0的位置；接下来的各成员存放在偏移量为该成员的类型所占字节数的整数倍的位置；特别地，当成员为结构时，该结构成员存放在偏移量为该结构成员内占空间最大的成员所占字节数的整数倍的位置</p>
+<p>比如对于以下代码</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> 	a;	<span class="comment">// 4 Bytes</span></span><br><span class="line">    <span class="keyword">char</span>	b;	<span class="comment">// 1 Bytes</span></span><br><span class="line">    <span class="keyword">short</span>	c;	<span class="comment">// 2 Bytes</span></span><br><span class="line">&#125;record;</span><br></pre></td></tr></table></figure>
+<p>这么一个结构体在内存中的存储方式为</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Byte</th>
+<th>Byte</th>
+<th>Byte</th>
+<th>Byte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>a</td>
+<td>a</td>
+<td>a</td>
+<td>a</td>
+</tr>
+<tr>
+<td>b</td>
+<td>留空</td>
+<td>c</td>
+<td>c</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="字长"><a href="#字长" class="headerlink" title="字长"></a>字长</h3><p>8 位字长的计算机的 int 型为 8 bits</p>
+<p>是的 32 位字长的计算机 int 型为 4 Bytes</p>
+<p><strong>此外</strong>：部分计算机是按字编址，字长成为最小地址单元，寻址范围 = 总内存 / 字长</p>
+<h2 id="进制转换"><a href="#进制转换" class="headerlink" title="进制转换"></a>进制转换</h2><h3 id="二进制→其它"><a href="#二进制→其它" class="headerlink" title="二进制→其它"></a>二进制→其它</h3><p>整数部分：小数点开始往左分配位数（跟进制数有关），不够往左边补零</p>
+<p>小数部分：小数点开始往右分配位数（跟进制数有关），不够往右边补零</p>
+<h3 id="其它→二进制"><a href="#其它→二进制" class="headerlink" title="其它→二进制"></a>其它→二进制</h3><p>整数部分除基（进制）取余，得到的余数依次是对应进制数的低位到高位</p>
+<p>小数部分乘基（进制）取整，得到的整数依次是对应进制数的高位到低位</p>
+<h2 id="校验码"><a href="#校验码" class="headerlink" title="校验码"></a>校验码</h2><h3 id="海明"><a href="#海明" class="headerlink" title="海明"></a>海明</h3><p>设置多个校验位，分组校验</p>
+<p>原有 4 个信息位，添加 3 个校验位，合起来对应 7 位海明码。</p>
+<p>将 4 位信息位分三组（同一位可以分在多个组中），即可生成3个校验位，每个校验位对应一组信息位</p>
+<p><strong>校验原理</strong>：每个 校验位 ⊕ 对应组的信息位，即可得到一个 3 位的二进制数，若为000，则无错误，若为010，则从右往左数的第 2 位出错</p>
+<p><strong>即校验位表示的二进制数要覆盖整个海明码</strong></p>
+<h3 id="CRC：循环冗余"><a href="#CRC：循环冗余" class="headerlink" title="CRC：循环冗余"></a>CRC：循环冗余</h3><p>发送接收双方约定一个多项式码 $G(n)$（记为生成多项式：比如1101对应的多项式为$x^3+x^2+x^0$）</p>
+<p>要发送的是一个 K 位信息码，则将信息码左移多项式最高次幂 R = 3 位，得到一个 K+R 位的中间码，末尾 R 位 0</p>
+<p>然后对中间码与多项式码 $G(n)$ 做模 2 除法，得到一个 R 位余数，这个 R 位余数写入中间码的后 R 位即可得最终CRC校验码</p>
+<p><strong>模 2 除法</strong>：异或运算，不借位</p>
+<p><strong>校验原理</strong>：将收到的CRC码与多项式码 $G(n)$做模 2 除法，余数为 000，则无错；若为 010，则从右往左数的第 2 位出错</p>
+<h2 id="运算"><a href="#运算" class="headerlink" title="运算"></a>运算</h2><h3 id="补码反码原码"><a href="#补码反码原码" class="headerlink" title="补码反码原码"></a>补码反码原码</h3><p>有符号数：1是负号，0是正号</p>
+<p><img src="/posts/data-structure/d3617d2ceb02f6129c9b41361804cbe2_r.jpg" alt="preview"></p>
+<p>补码：解决了+0和-0同时存在的问题；另外”正负数相加等于0”的问题，同样得到满足</p>
+<p>通常情况下数字都是以补码的形式保存的，在转换成十进制的时候要特别注意</p>
+<h3 id="移位"><a href="#移位" class="headerlink" title="移位"></a>移位</h3><p>逻辑移位：整体移动，空位补 0 就完事儿了</p>
+<p>算术移位：符号位不变，右移补符号位，左移补 0</p>
+<hr>
+<p>【例】16 位的机器中，若 int 型的变量 x = -513，则执行 x = x/2 后，x 是多少，用 16 进制表示</p>
+<p>[x] = 1111 1101 1111 1111，右移一位，[x] = 1[1]11 1110 1111 1111，添加符号位 1，所以 x = FEFFH</p>
+<hr>
+<h3 id="各种信号标志位"><a href="#各种信号标志位" class="headerlink" title="各种信号标志位"></a>各种信号标志位</h3><p>进位/借位标志 CF：可以分开来讨论</p>
+<ul>
+<li>进位：出现在加法中</li>
+<li>借位：出现在减法中，当减法最后的结果大于零，则 CF = 0</li>
+</ul>
+<h3 id="IEEE单精度浮点"><a href="#IEEE单精度浮点" class="headerlink" title="IEEE单精度浮点"></a>IEEE单精度浮点</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>符号位S</th>
+<th>阶码E</th>
+<th>尾数M</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1位（0为正数，1为负数)</td>
+<td>8位（阶 + 127）</td>
+<td>23位</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/yaowanliang/article/details/89102815">细节博客</a></p>
+<p><strong>单精度浮点运算</strong></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_40663469/article/details/89061612">细节博客</a></p>
+<hr>
+<p><img src="/posts/data-structure/image-20191210162718230.png" alt="image-20191210162718230"></p>
+<p>【解释】</p>
+<p>12．考查符号位的扩展，故选 D。</p>
+<p>​    结合题干及选项可知，int 为 32 位，short 为 16 位；又 C 语言的数据在内存中为补码形式，故 x、y 的机器数写为 0000007FH、FFF7H; 执行 z=x+y 时，由于 x 是 int 型，y 为 short 型，故需将 y 的类型强制转换为 int，在机器中通过符号 位扩展实现，由于 y 的符号位为 1，故在 y 的前面添加 16 个 1，即可将 y 强制转换为 int 型，其十六进制 形式为 FFFFFFF7H; 然后执行加法，即 0000007FH+FFFFFFF7H=00000076H，其中最高位的进位 1 自然丢弃。<br> 13．考查浮点加法运算</p>
+<p>​    根据题意， X可记为 00, 111; 00, 11101（分号前为阶码，分号后为尾数）， Y可记为00, 101; 00, 10100。首先对阶，X、Y 阶码相减，即 00, 111-00, 101=00, 111+11, 0111=00, 010，可知 X的阶码比 Y 的 价码大 2，根据小阶向大阶看齐的原则，将 Y 的阶码加 2，尾数右移 2 位，可得 Y 为 00, 111; 00, 00101。<br>​    尾数相加，即 00, 11101+00, 00101=01, 00010，尾数相加结果符号位为 01，故需进行右规。 规格化，将尾数右移 1 位，阶码加 1，得 X+Y 为 01, 000; 00, 1000，阶码符号位为 01，说明发生溢出。</p>
+<hr>
+<h3 id="IEEE双精度浮点"><a href="#IEEE双精度浮点" class="headerlink" title="IEEE双精度浮点"></a>IEEE双精度浮点</h3><hr>
+<p><img src="/posts/data-structure/image-20191211190221107.png" alt="image-20191211190221107"></p>
+<p><img src="/posts/data-structure/image-20191211190246308.png" alt="image-20191211190246308"></p>
+<hr>
+<h2 id="存储"><a href="#存储" class="headerlink" title="存储"></a>存储</h2><h3 id="时间单位"><a href="#时间单位" class="headerlink" title="时间单位"></a>时间单位</h3><p><strong>读周期</strong>：两次连续的读操作必须经过的时间</p>
+<p><strong>读取时间</strong>：一个读周期里，从输入地址到数据电平稳定输出的这段时间</p>
+<p><strong>硬件常识</strong>：任何存储器，写入必须擦除原有数据，写速度比读速度慢不少</p>
+<h3 id="CPU里的寄存器"><a href="#CPU里的寄存器" class="headerlink" title="CPU里的寄存器"></a>CPU里的寄存器</h3><p>CPU 中包含了两个与内存交互的寄存器，分别是MDR（Memory Data Register）和MAR（Memory Address Register）</p>
+<p>MDR：存储器数据寄存器，用来作CPU与内存数据交互的缓冲区</p>
+<p>MAR：里面存放了从内存中读/写数据的地址。MAR的位数映射到主存地址空间</p>
+<h3 id="存储器"><a href="#存储器" class="headerlink" title="存储器"></a>存储器</h3><h4 id="RAM"><a href="#RAM" class="headerlink" title="RAM"></a>RAM</h4><p>RAM：随机存取</p>
+<p>SRAM：速度快，成本高，集成度低。一般用于 Cache</p>
+<ul>
+<li>易失性（断电失去数据）</li>
+<li>非破坏性（读取信息仍保持原状态）；</li>
+<li>一般采取行列独立技术从内存中取数，每次取数要发送一次地址，一组行地址线，一组列地址线</li>
+</ul>
+<p>DRAM：速度慢，成本低，集成度高。一般用于主机内存</p>
+<ul>
+<li>电荷存在一段时间后（就算不断电）会自动丢失，因此需要周期性地刷新（动态刷新，所以叫 Dynamic），好在刷新过程对 CPU 透明，另外DRAM按行刷新，刷新开销跟行数成正比</li>
+<li>行列地址复用技术从内存中取数，每次取数要发送两次地址（一次行地址，一次列地址）‍，共用一组地址线</li>
+</ul>
+<h4 id="ROM"><a href="#ROM" class="headerlink" title="ROM"></a>ROM</h4><p>ROM：随机存取，一般用于主存（BIOS）</p>
+<ul>
+<li>只读，结构简单，位密度大</li>
+<li>非易失性（不加电长期保存），稳定可靠</li>
+</ul>
+<p>FM：Flash Memory，闪存，可以快速擦除和重写</p>
+<p>SSD：Solid State Drivers，固态硬盘，基于闪存，由控制单元和 Flash 存储芯片组成，比传统硬盘更快，功耗低，但价格贵</p>
+<blockquote>
+<p>所以说，主存 = RAM + ROM（BIOS），别再说主存中全是 RAM</p>
+<p>注意：开机启动时，操作系统最终要调入内存 RAM 中（系统区）运行</p>
+</blockquote>
+<h3 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h3><h4 id="位扩展"><a href="#位扩展" class="headerlink" title="位扩展"></a>位扩展</h4><p><img src="/posts/data-structure/1574820336962.png" alt="1574820336962"></p>
+<p>特点：各芯片连接地址线的方式相同（每条地址总线接有所有负载/芯片），连接数据线的方式不同（一个芯片占据一根），读数据时要选中所有芯片（片选信号 CS 给到所有芯片）</p>
+<h4 id="字扩展"><a href="#字扩展" class="headerlink" title="字扩展"></a>字扩展</h4><p><img src="/posts/data-structure/1574820575444.png" alt="1574820575444"></p>
+<p>特点：各芯片连接地址线的方式相同，连接数据线的方式相同（一个芯片连接整组数据线），读数据时要选中译码器选中的芯片即可</p>
+<hr>
+<p><img src="/posts/data-structure/image-20191211191149871.png" alt="image-20191211191149871"></p>
+<p><img src="/posts/data-structure/image-20191211191202782.png" alt="image-20191211191202782"></p>
+<h3 id="CPU访存并行"><a href="#CPU访存并行" class="headerlink" title="CPU访存并行"></a>CPU访存并行</h3><h4 id="双端口存储器"><a href="#双端口存储器" class="headerlink" title="双端口存储器"></a>双端口存储器</h4><p>统一存储器RAM，有两个独立的端口，两组独立的地址线，数据线，读写控制线</p>
+<p>是一种在空间上的并行，缺陷是同时读写统一数据时会有冲突，需要额外的设计来处理</p>
+<h4 id="多模块存储器"><a href="#多模块存储器" class="headerlink" title="多模块存储器"></a>多模块存储器</h4><p><strong>时间概念</strong></p>
+<ul>
+<li>总线的传输周期：CPU取指令的时间间隔 t</li>
+<li>存储模块的存取周期：模块存取数据的时间间隔 T</li>
+<li>通常 t 要比 T 更短，因为 CPU 更快，考虑如何设计来协调 T 和 t ，以达到最佳 CPU 访存效率</li>
+</ul>
+<p><strong>单体多字</strong>：每个储存单元里存放多个字，一个存取周期内从一个地址取出多条指令</p>
+<p><strong>多体并行</strong>：一个存储体由多个模块组成，每个模块独立的地址寄存器，数据寄存器，控制电路，说白了每个模块有自己的存取周期。</p>
+<ul>
+<li>高位交叉：地址的高位决定模块的切换，换句话说地址低位连续递增时依然在同一个模块内，你得老老实实等待模块的存取周期过了才能下一次存取，本质就是串行，取 $n$ 条指令要 $nT$</li>
+<li>低位交叉：地址的低位决定模块的切换，每次地址递增就意味着模块的切换，你可以不等待当前模块的存取周期结束就直接去下一个模块取，真实并行，取 $n$ 条指令要 $T + (n-1)t$。t 也不要设置的太短，不要在一个 T 内轮完所有模块，否则会冲突；也不要在一个 T 内访问一个模块两次也可能会冲突</li>
+</ul>
+<h3 id="Cache与主存"><a href="#Cache与主存" class="headerlink" title="Cache与主存"></a>Cache与主存</h3><h4 id="主存块到Cache块的映射"><a href="#主存块到Cache块的映射" class="headerlink" title="主存块到Cache块的映射"></a>主存块到Cache块的映射</h4><p>直接映射：主存的每个块固定占有cache的一个块</p>
+<p><img src="/posts/data-structure/20171116105027707" alt="img"></p>
+<p> 全相联映射：主存的每个块在cache里随便拿</p>
+<p><img src="/posts/data-structure/20171116105644715" alt="img"></p>
+<p>组相联映射：主存的每个块在cache里对应一个组，组内随便用。内存中相邻的两个块对映在cache不同的两个组里</p>
+<p><img src="/posts/data-structure/20180425165250180" alt="img"></p>
+<p>指令cache与数据cache分开是为了：减少指令流水线资源冲突</p>
+<h4 id="Cache块大小的计算"><a href="#Cache块大小的计算" class="headerlink" title="Cache块大小的计算"></a>Cache块大小的计算</h4><p>要知道内存地址到Cache地址的映射过程</p>
+<p>首先，要知道Cache是比内存小的，所以一个Cache块是多个内存块的映射目的地，即已知【通过有效位】一个Cache块有内容，你是无法确定这个块区里究竟放的是哪个内存的块，所以Cache块里必须存放能够区分内存块的【标志位】</p>
+<p>举个例子：</p>
+<p>某计算机内存为256MB，按字节编址【256MB = $2^{28}$B，即一条内存物理地址有 28 个 bits，用这 28 个bits 去找一个Cache中的字节】</p>
+<p>Cache中有8个行【8=$2^3$，内存地址里需要划分 3 位来定位行】</p>
+<p>行大小为64B【8=$2^6$，定位到行后，还需要内存地址里划分 6 位来定位行内的具体字节】</p>
+<p>最后地址中还剩下 28 - 3 - 6 = 19 位，这 19 位是高位地址，能唯一确定一个内存中的块，这19位就是标志位</p>
+<p>所以</p>
+<p>在题目<strong>特别声明不考虑一致性维护和替换算法的控制位</strong>，一个cache块的大小 = (1 + 19) bits + 内存块大小 ，记得统一单位</p>
+<p>一般情况 cache块的大小 = 主存块大小</p>
+<p>另外：若题目声明<strong>采用写回法</strong>，则还需要加上<strong>一致性维护位</strong> 1 bit</p>
+<p>若声明了<strong>替换算法</strong>，则还要加上替换算法控制位 1 bit</p>
+<h4 id="地址结构"><a href="#地址结构" class="headerlink" title="地址结构"></a>地址结构</h4><p>逻辑地址：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>虚拟页号P</th>
+<th>页内偏移b</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>查页表的表项</td>
+<td>用于合成物理地址</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>虚拟页号：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>标记位</th>
+<th>组号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TLB对应的组有这个标记位就命中</td>
+<td>快表TLB的组号</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>页表项：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>有效位</th>
+<th>页框号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1/0</td>
+<td>物理地址的页框号</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>物理地址：【页表中第P项里，有效位为1时，里面的页框号】+【页内偏移b】</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>标记位M</th>
+<th>行/组号</th>
+<th>行/块内偏移</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>内存块的高位部分</td>
+<td>行</td>
+<td>字节为单位</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Cache内容：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>有效位</th>
+<th>标记位</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0/1</td>
+<td>要和物理地址中的 M 一致才算命中</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h2><h3 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>OP</th>
+<th>A₁</th>
+<th>A₂</th>
+<th>A₃</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>15条三地址</td>
+<td>【0000 ~ 1110】</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>15条二地址</td>
+<td>1111</td>
+<td>【0000 ~ 1110】</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>15条一地址</td>
+<td>1111</td>
+<td>1111</td>
+<td>【0000 ~ 1110】</td>
+<td></td>
+</tr>
+<tr>
+<td>16条零地址</td>
+<td>1111</td>
+<td>1111</td>
+<td>1111</td>
+<td>【0000 ~ 1111】</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>自己设计的原则</p>
+<ul>
+<li>各指令的操作码不能重复</li>
+<li>不同类型的指令前部分不能相同</li>
+</ul>
+<h3 id="指令系统"><a href="#指令系统" class="headerlink" title="指令系统"></a>指令系统</h3><p>RISC</p>
+<ul>
+<li>只有Load/Store两种访存指令</li>
+<li>一定采用指令流水线技术，大部分指令在一个时钟周期内</li>
+<li>极其重视编译优化</li>
+<li>硬布线控制为主</li>
+<li>不能兼容老机器</li>
+</ul>
+<p>CISC</p>
+<ul>
+<li>寻址方式复杂，指令多</li>
+<li>难以优化编译</li>
+<li>微程序控制</li>
+<li>能兼容老机器</li>
+</ul>
+<h3 id="寻址方式"><a href="#寻址方式" class="headerlink" title="寻址方式"></a>寻址方式</h3><ol>
+<li>隐含寻址：一些默认的操作数地址，比如在ACC对与单地址指令来说是默认的第二操作数地址</li>
+<li>立即（数）寻址：操作<strong>数</strong>直接在指令（地址段）里</li>
+<li>直接寻址：操作数的真实<strong>物理地址</strong>直接在指令地址段</li>
+<li>间接寻址：给出含有操作数的真实物理地址的储存器单元地址</li>
+<li>寄存器寻址：给出操作数所在的<strong>寄存器编号</strong>，快，不必访存</li>
+<li>寄存器间接寻址：给出含有操作数的真实物理地址的寄存器编号</li>
+<li>相对寻址：物理地址 EA = (PC) + A（指令给出 A）</li>
+<li>基址寻址： EA = (BR 基址寄存器的内容) + A（指令给出 A），BR 程序执行时不变，A 改变【面向系统】</li>
+<li>变址寻址：EA = (IX 变址寄存器的内容） + A（指令给出 A），IX 可以由用户改变，A 固定【面向用户】</li>
+<li>堆栈寻址</li>
+</ol>
+<hr>
+<p><img src="/posts/data-structure/image-20191210162003270.png" alt="image-20191210162003270"></p>
+<p>【解释】通常完成一条指令可分为取指阶段和执行阶段。在取指阶段通过访问存储器可将指令取出；在执行 阶段通过访问存储器可以将操作数取出。这样，虽然指令和数据都是以二进制代码形式存放在存储器中， 但 CPU可以判断在取指阶段访问存储器取出的二进制代码是指令；在执行阶段访存取出的二进制代码是 数据。 </p>
+<p><img src="/posts/data-structure/image-20191210184659088.png" alt="image-20191210184659088"></p>
+<h2 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h2><h3 id="控制器"><a href="#控制器" class="headerlink" title="控制器"></a>控制器</h3><p>硬布线控制器：速度取决于电路延迟，所以速度快。采用专门的逻辑电路实现，修改和扩展困难</p>
+<p>微程序控制器：采用了存储程序原理，每条指令 都要访控存，所以速度慢</p>
+<h3 id="指令流水线"><a href="#指令流水线" class="headerlink" title="指令流水线"></a>指令流水线</h3><p>影响流水线性能的因素</p>
+<ul>
+<li>结构相关（资源冲突）：多条指令同时竞争一个资源<ul>
+<li>解决方式：资源重复配置</li>
+</ul>
+</li>
+<li>数据相关（数据冲突）：有些运算需要有先后顺序<ul>
+<li>解决方式：编译器优化调整</li>
+</ul>
+</li>
+<li>控制相关（控制冲突）：当流水线遇到转移指令时，不知道下一条执行的指令是什么，所以下一条指令不能并行进入流水线，产生断流<ul>
+<li>解决方式：预测</li>
+</ul>
+</li>
+</ul>
+<p>性能指标</p>
+<ul>
+<li>吞吐率：单个时间完成的任务数</li>
+<li>加速比：完成相同数量任务时，顺序执行时间/流水线执行时间</li>
+<li>流水线的效率：指令小方块面积和/大矩形面积</li>
+</ul>
+<p><strong>当一条指令由于某种原因被阻塞时，它的下一条指令也会因此阻塞</strong></p>
+<h3 id="数据通路"><a href="#数据通路" class="headerlink" title="数据通路"></a>数据通路</h3><hr>
+<p><img src="/posts/data-structure/image-20191210194643659.png" alt="image-20191210194643659"></p>
+<p>步骤：</p>
+<p>(1)  执行相加运算，需把存储器中的数据读出，为此首先送地址，将 R1 的内容送 MAR，控制信号是 R1out、 MARin</p>
+<p>(2)  启动读主存操作，读出的内容送入 MDR，控制信号是 MemR、MDRinE。还可同时把 R0 的内容经内总 线送入 A，用到的控制信号是 R0out、Ain</p>
+<p>(3)  执行加法运算，即 A 的内容与 MDR 的内容相加，结果保存到 AC，控制信号是 MDRout、Add、Acin。<br>(4)  要把 AC 的内容写入主存，由于 R1 的内容已经在 MAR 中，地址已经有了，但需要把写入的数据（已 经在 AC中）经内总线送入 MDR，控制信号是 ACout、MDRin</p>
+<p>(5) 给出写主存的命令，把 MDR的内容经 DB 送存储器的数据线引脚，执行写操作，控制信号是 MDRoutE、 MemW</p>
+<p>答案：</p>
+<p><img src="/posts/data-structure/image-20191210202020338.png" alt="image-20191210202020338"></p>
+<h2 id="I-O"><a href="#I-O" class="headerlink" title="I/O"></a>I/O</h2><h3 id="中断"><a href="#中断" class="headerlink" title="中断"></a>中断</h3><p>单级中断系统中，不允许中断嵌套。</p>
+<p>通常中断的处理过程为</p>
+<ol>
+<li>关中断：不允许更高级的中断请求</li>
+<li>保存断点：原来的程序的断点</li>
+<li>识别中断源：找到中断服务程序的地址【1~3 步由硬件（中断隐指令）完成】</li>
+<li>保存现场：保存的是中断服务程序的现场</li>
+<li>中断事件处理：开中断、执行中断服务程序、关中断。这里的开关中断时允许嵌套中断的系统</li>
+<li>恢复现场：进程调度的中断服务程序的现场</li>
+<li>开中断，中断返回：中断服务程序的最后一条指令通常是中断返回指令【4~7 由中断服务程序完成】</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/posts/data-structure/" data-id="ckju61vpa00047grrf0bthdjr" data-title="数据结构" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/408-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%BB%BC%E5%90%88-%E8%80%83%E7%A0%94-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">408 计算机基础综合 考研 数据结构</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/posts/operating-system/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          操作系统
+        
+      </div>
+    </a>
+  
+  
+    <a href="/posts/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">建站过程</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/408-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%BB%BC%E5%90%88-%E8%80%83%E7%A0%94/" rel="tag">408 计算机基础综合 考研</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/408-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%BB%BC%E5%90%88-%E8%80%83%E7%A0%94-OS/" rel="tag">408 计算机基础综合 考研 OS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/408-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%BB%BC%E5%90%88-%E8%80%83%E7%A0%94-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">408 计算机基础综合 考研 数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/408-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%BB%BC%E5%90%88-%E8%80%83%E7%A0%94-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag">408 计算机基础综合 考研 计算机网络</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/408-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%BB%BC%E5%90%88-%E8%80%83%E7%A0%94/" style="font-size: 10px;">408 计算机基础综合 考研</a> <a href="/tags/408-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%BB%BC%E5%90%88-%E8%80%83%E7%A0%94-OS/" style="font-size: 10px;">408 计算机基础综合 考研 OS</a> <a href="/tags/408-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%BB%BC%E5%90%88-%E8%80%83%E7%A0%94-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">408 计算机基础综合 考研 数据结构</a> <a href="/tags/408-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%BB%BC%E5%90%88-%E8%80%83%E7%A0%94-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 10px;">408 计算机基础综合 考研 计算机网络</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/posts/computer-organization/">计算机组成原理</a>
+          </li>
+        
+          <li>
+            <a href="/posts/computer-network/">计算机网络</a>
+          </li>
+        
+          <li>
+            <a href="/posts/operating-system/">操作系统</a>
+          </li>
+        
+          <li>
+            <a href="/posts/data-structure/">数据结构</a>
+          </li>
+        
+          <li>
+            <a href="/posts/hello-world/">建站过程</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
