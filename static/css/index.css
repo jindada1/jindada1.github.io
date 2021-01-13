@@ -1,0 +1,87 @@
+body {
+    margin: 0;
+    min-width: 1080px;
+}
+
+#app {
+    max-width: 1400px;
+    margin: auto;
+}
+
+.header {
+    height: 900px;
+    overflow: hidden;
+    background: linear-gradient(to right, lightgray 0%, lightgray 46.5%, white 46.5%, white 100%);
+}
+
+.header-bar {
+    height: 100px;
+}
+
+@font-face {
+    font-family: "Cormorant Garamond";
+    src: url("../fonts/elegant.woff2");
+}
+
+.header-title {
+    font-size: 66px;
+    max-width: 315px;
+    text-align: center;
+    margin: 10px auto 100px;
+    text-transform: uppercase;
+    font-family: 'Cormorant Garamond';
+}
+
+.header-pic-1 {
+    margin-left: 15%;
+    width: 35%;
+}
+
+.header-pic-2 {
+    width: 30%;
+    float: right;
+    margin-top: 100px;
+}
+
+.header-pic-text {
+    top: 280px;
+    right: 25%;
+    padding: 10px;
+    color: gray;
+    font-size: 30px;
+    position: absolute;
+    font-family: monospace;
+}
+
+.content section {
+    height: 600px;
+}
+
+.content section:nth-child(odd) {
+    background: whitesmoke;
+}
+
+.content-col {
+    float: left;
+    width: 50%;
+}
+
+.copyright {
+    color: gray;
+    text-align: center;
+    margin: 0;
+    padding: 25px;
+    clear: both;
+    background: #FFFFFF;
+    font-size: 93%;
+}
+
+.copyright span {
+    border-left: 1px solid #000000;
+    margin-left: 10px;
+    padding-left: 10px;
+}
+
+.copyright a {
+    color: black;
+}
