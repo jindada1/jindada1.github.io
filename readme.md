@@ -6,4 +6,4 @@
 
 + [主页](https://jindada1.github.io) 【html】
 
-+ [博客](https://jindada1.github.io/blog/) 【hexo】
++ [博客](https://jindada1.github.io/blog/) 【Jekyll】
