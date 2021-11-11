@@ -1,106 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>金大大的主页</title>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <!-- 引入样式 -->
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
-    <!-- 引入组件库 -->
-    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
-    <!-- 引入 axios 调用 api -->
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <!-- 自己的样式 -->
-    <link rel="stylesheet" href="./static/css/index.css">
-
-    <!-- Aplayer 模块 -->
-    <script src="./static/js/APlayer.min.js"></script>
-    <link rel="stylesheet" href="./static/css/APlayer.min.css">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="icon" href="/favicon.ico">
+    <title>taekwondo-front</title>
+    <link href="/css/Sign.94fb3daf.css" rel="prefetch">
+    <link href="/css/chunk-319a9810.0bed927b.css" rel="prefetch">
+    <link href="/css/chunk-4f214d91.e3a63f95.css" rel="prefetch">
+    <link href="/css/chunk-5e69f2f0.e37c8202.css" rel="prefetch">
+    <link href="/css/chunk-9d3d38e4.91cc4e54.css" rel="prefetch">
+    <link href="/js/Sign.68b6a939.js" rel="prefetch">
+    <link href="/js/chunk-2d2261a6.fae641d1.js" rel="prefetch">
+    <link href="/js/chunk-319a9810.4c752aa6.js" rel="prefetch">
+    <link href="/js/chunk-4f214d91.68fe811a.js" rel="prefetch">
+    <link href="/js/chunk-5e69f2f0.92a2283a.js" rel="prefetch">
+    <link href="/js/chunk-9d3d38e4.620ab67c.js" rel="prefetch">
+    <link href="/css/app.99414242.css" rel="preload" as="style">
+    <link href="/css/chunk-vendors.a16c4353.css" rel="preload" as="style">
+    <link href="/js/app.475256f4.js" rel="preload" as="script">
+    <link href="/js/chunk-vendors.95861adb.js" rel="preload" as="script">
+    <link href="/css/chunk-vendors.a16c4353.css" rel="stylesheet">
+    <link href="/css/app.99414242.css" rel="stylesheet">
 </head>
 
-<body>
-    <div id="app">
-        <div class="header">
-            <div class="header-bar">
-
-            </div>
-            <div class="header-title-area">
-                <div class="header-title"> {{title}} </div>
-            </div>
-
-            <div style="position: relative;">
-                <img class="header-pic-1" :src="localImage('kriswu2.jpg')">
-                <img class="header-pic-2" :src="localImage('jj2.jpg')">
-                <div class="header-pic-text">
-                    <div>听说~</div>
-                    <div><span style="color: black;">黑色</span>很适合装逼</div>
-                    <div>所以</div>
-                    <div>我就想试试</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="content">
-            <section>
-                <div class="content-col">
-                    <h2>先听首歌吧</h2>
-                    <div id="aplayer"></div>
-                </div>
-                <div class="content-col">
-                    <h2>搜索</h2>
-                </div>
-            </section>
-            <section></section>
-            <section></section>
-            <section></section>
-            <section></section>
-        </div>
-
-        <div class="footer">
-            <div></div>
-            <div class="copyright">
-                <p>
-                    Copyright © 2020 Kris Huang. All Rights Reserved.
-                    <span>
-                        Site Powered by <a href="https://pages.github.com"> Github Pages. </a>
-                    </span>
-                </p>
-            </div>
-        </div>
-    </div>
+<body><noscript><strong>We're sorry but taekwondo-front doesn't work properly without JavaScript enabled. Please enable
+            it to continue.</strong></noscript>
+    <div id="app"></div>
+    <script src="/js/chunk-vendors.95861adb.js"></script>
+    <script src="/js/app.475256f4.js"></script>
 </body>
-
-<script>
-    new Vue({
-        el: '#app',
-        data: () => {
-            return {
-                title: "Kris Huang"
-            }
-        },
-        computed: {
-            localImage() {
-                return function (name) {
-                    return "./static/images/" + name;
-                }
-            }
-        },
-        methods: {
-        },
-        mounted() {
-            const ap = new APlayer({
-                container: document.getElementById('aplayer'),
-                audio: [{
-                    name: 'name',
-                    artist: 'artist',
-                    url: 'url.mp3',
-                    cover: 'cover.jpg'
-                }]
-            });
-        }
-    })
-</script>
 
 </html>
