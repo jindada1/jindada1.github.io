@@ -1,9 +1,4 @@
-# 耗子尾汁
+# Github Pages
 
-测试 Github Pages
+跆拳道网页版迁移至此：https://jindada1.github.io/teakwondo/
 
-## 站点列表
-
-+ [主页](https://jindada1.github.io) 【html】
-
-+ [博客](https://jindada1.github.io/blog/) 【Jekyll】
