@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>概率模拟可视化</title>
+    <link rel="stylesheet" type="text/css" href="./import/element-ui/element.css">
+    <link rel="stylesheet" type="text/css" href="./static/css/index.css">
+    <link rel="stylesheet" type="text/css" href="./static/css/el-tools.css">
+</head>
+
+<body>
+    <div id="app">
+        <el-tabs v-model="activeTabName" :stretch="true" :lazy="true" @tab-click="tabClicked">
+            <el-tab-pane v-for="tab in tabs" :key="tab.label" :label="tab.label" :name="tab.name">
+                <component :is="tab.component" :ref="tab.name"></component>
+            </el-tab-pane>
+        </el-tabs>
+    </div>
+</body>
+
+<!-- import Vue before Element -->
+<script src="./import/vue.js"></script>
+<!-- import JavaScript -->
+<script src="./import/element-ui/element.js"></script>
+<!-- import plotly.js -->
+<script src="import/plotly-latest.min.js" charset="utf-8"></script>
+<!-- import math.js -->
+<script src="import/math.js" charset="utf-8"></script>
+
+<!-- use configurations -->
+<script src="./config.js"></script>
+<!-- use custom element-ui widgets -->
+<script src="static/js/el-tools.js"></script>
+<!-- use chart tools -->
+<script src="./static/js/chart.js"></script>
+<!-- use math tools -->
+<script src="./static/js/k-math.js"></script>
+<!-- use components -->
+<script src="./components/pi.js"></script>
+<script src="./components/once.js"></script>
+<script src="./components/coins.js"></script>
+<script src="./components/bayes.js"></script>
+<script src="./components/hundred.js"></script>
+<script src="./components/binomial.js"></script>
+<script src="./components/papermoney.js"></script>
+<script src="./components/jointdensity.js"></script>
+
+<!-- run main scripts -->
+<script>
+    const tabs = configurations.tabs;
+    const HOME_PAGE = 0;
+    new Vue({
+        el: '#app',
+        data: function () {
+            return {
+                tabs: tabs,
+                activeTabName: tabs.length ? tabs[HOME_PAGE].name : null
+            }
+        },
+        methods: {
+            tabClicked() {
+                this.$refs[this.activeTabName][0].init();
+            }
+        },
+        mounted() {            
+            Vue.nextTick(() => {
+                // console.log('next tick in index mounted');
+                this.$refs[this.activeTabName][0].init();
+            })
+        }
+    })
+</script>
+
+</html>
