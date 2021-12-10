@@ -1,0 +1,38 @@
+.el-tools-item {
+    padding: 5px 0;
+    display: flex;
+}
+
+.el-tools-item-col {
+    flex-direction: column;
+}
+
+.el-tools-item-head {
+    line-height: 40px;
+    flex-shrink: 0;
+    flex-grow: 1;
+}
+
+.el-tools-item-text {
+    line-height: 40px;
+    flex: none;
+}
+
+.el-tools-item-content {
+    max-width: 220px; 
+    display: flex;
+}
+
+.el-tools-item-content-text {
+    line-height: 40px;
+    margin: 0 10px;
+    flex: none;
+}
+
+.el-tools-item-tag {
+    margin: 5px;
+}
+
+.el-tools-item-tag-add {
+    width: 70px;
+}
